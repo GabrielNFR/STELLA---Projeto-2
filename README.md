@@ -9,6 +9,7 @@
   ![](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
   
   ![Status](https://img.shields.io/badge/Status-Planejamento%20e%20Ideação-blueviolet?style=for-the-badge)
+  ![Deploy](https://img.shields.io/badge/Deploy-Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
   ![Grupo](https://img.shields.io/badge/Grupo%2010-CESAR%20School-red?style=for-the-badge)
   
   **Transformando a jornada de FIV em uma experiência clara, organizada e humanizada**
@@ -112,6 +113,7 @@ Uma plataforma web mobile-first que:
 - Figma (Design e prototipagem)
 - Git/GitHub (Versionamento)
 - Google Docs (Documentação)
+- Azure (Deploy e hospedagem)
 
 </details>
 
@@ -160,10 +162,12 @@ Uma plataforma web mobile-first que:
 
 | Recurso | Descrição | Link |
 |---------|-----------|------|
+| **Aplicação** | Deploy em produção (Azure) | [Em breve](#) |
 | **Jira** | Backlog e sprints | [Acessar Jira](https://cesar-team-y6k4ko55.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog) |
+| **Trello** | Organização e planejamento | [Acessar Trello](https://trello.com/invite/b/69ba9b71b141e6e8e153a992/ATTI23f2f6335312552a10bb466777fa5ade4485719E/projeto-2) |
 | **User Stories** | Histórias de usuário completas | [Google Docs](https://docs.google.com/document/d/1RIJzqYiuKv_tJb9Deknhmri_eNLkZNZRwsHHddazOM4/edit?tab=t.0) |
-| **Google Sites** | Documentação do projeto | [Acessar Site](https://sites.google.com/d/1aOXhDDL1A_Ysdwihm-PgMLGsea-7ZmlQ/p/12NOwWNqwqvcDLlxdwdVfOW8dOoCg3gsN/edit) |
-| **Google Drive** | Arquivos e documentos | [Acessar Drive](https://drive.google.com/drive/u/0/folders/0AP2M0oL3Vs-RUk9PVA) |
+| **Google Sites** | Documentação do projeto | [Acessar Site](https://sites.google.com/cesar.school/stella/home) |
+| **Google Drive** | Arquivos e documentos | [Acessar Drive](https://drive.google.com/drive/folders/1CKaAAoIi-wBSr-T2X3tDdhf3aRNBKza5?usp=sharing) |
 
 </details>
 
@@ -191,7 +195,7 @@ Uma plataforma web mobile-first que:
 | Nome | Papel | GitHub | Email |
 |------|-------|--------|-------|
 | Graziela Martins | UI/UX Designer | [@gmsc-byte](https://github.com/gmsc-byte) | gmsc@cesar.school |
-| João Cassemiro | UI/UX Designer | [@](link) | jpslc@cesar.school |
+| João Cassemiro | UI/UX Designer | [@usuario](#) | jpslc@cesar.school |
 | Maria Eduarda Bessa | UI/UX Designer | [@EduardaBessa](https://github.com/EduardaBessa) | merbc2@cesar.school |
 
 </details>
@@ -201,47 +205,65 @@ Uma plataforma web mobile-first que:
 <details>
 <summary><strong>Organização de Pastas</strong></summary>
   
+```
 STELLA-Projeto-2/
-
+├── docs/                 # Documentação do projeto
+│   ├── user-stories/     # Histórias de usuário
+│   ├── wireframes/       # Wireframes e mockups
+│   └── research/         # Pesquisas e análises
+├── src/                  # Código fonte
+│   ├── frontend/         # Aplicação web (HTML, CSS, JS)
+│   ├── backend/          # APIs Django
+│   └── database/         # Schemas e migrations
+├── tests/                # Testes automatizados
+├── .gitignore
+├── requirements.txt      # Dependências Python
 └── README.md
+```
 </details>
 
 ## Como Executar
 
 <details>
-<summary><strong>Instalação e Execução Local</strong></summary>
+<summary><strong>Acesso à Aplicação</strong></summary>
 
-### Pré-requisitos
+### Aplicação em Produção
+Acesse a aplicação hospedada no Azure: **[Em breve](#)**
+
+### Execução Local
+
+**Pré-requisitos:**
 - Python 3.10+
 - pip
 - Git
 
-### Passo a Passo
+**Instalação:**
 
 ```bash
-# Clone o repositório
 git clone https://github.com/seu-usuario/STELLA-Projeto-2.git
 cd STELLA-Projeto-2
 
-# Crie um ambiente virtual
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
-# ou
-venv\Scripts\activate  # Windows
+venv\Scripts\activate     # Windows
 
-# Instale as dependências
 pip install -r requirements.txt
-
-# Execute as migrações do banco
 python manage.py migrate
-
-# Inicie o servidor
 python manage.py runserver
-
-# Acesse no navegador
 ```
 
-**Projeto em fase de planejamento**
+A aplicação estará disponível em `http://localhost:8000`
+
+</details>
+
+## Design
+
+<details>
+<summary><strong>Protótipos e Wireframes</strong></summary>
+
+- **Protótipo de Baixa Fidelidade** - Em desenvolvimento no Figma
+- **Protótipo de Alta Fidelidade** - Previsto para Sprint 2
+- **Sistema de Design** - Em construção
 
 </details>
 
@@ -250,11 +272,12 @@ python manage.py runserver
 <details>
 <summary><strong>Outros Recursos</strong></summary>
 
-- Desk Research: Pesquisa de mercado e similares
-- Personas: Perfis de usuários
-- Análise de Similares: Benchmarking
-- Wireframes: Protótipos de baixa fidelidade
-- Brainwriting: Sessão de ideação
+- [Desk Research](https://docs.google.com/document/d/103ANIAQEadMIuUWM5kwDZSC6n_t9JuYM/edit?usp=sharing&ouid=114405899175167523343&rtpof=true&sd=true) - Pesquisa de mercado e similares
+- [Persona Atualizada](https://drive.google.com/file/d/1wgp92xa3uX5PLMOYIk8wnQdO4MMINlj6/view?usp=sharing) - Perfil detalhado da usuária
+- [User Persona e Mapa de Empatia](https://drive.google.com/file/d/1NdK3WL01cuPxQS-sdHCuRN6z5Bv3bWr1/view?usp=sharing) - Análise comportamental
+- [Análise de Similares](https://docs.google.com/spreadsheets/d/1EXk8t48OFYPi4eDS5xwMWSmszn31NcQv/edit?gid=1863085712#gid=1863085712) - Benchmarking de soluções existentes
+- [Brainwriting](https://docs.google.com/document/d/1a0morUqkvJggSA7stWC4wUgFSRDEOz4JvdUXPtAnDRw/edit?tab=t.0#heading=h.o8fytvu8u3nu) - Sessão de ideação
+- [Pesquisa de Funcionalidades](https://docs.google.com/document/d/1dPnY5OtfrhOSahmPvxDl5e3fdWpJNLIJ2oGrlhVgidM/edit?usp=sharing) - Levantamento de requisitos
 
 </details>
 
