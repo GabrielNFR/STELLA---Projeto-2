@@ -195,7 +195,7 @@ Uma plataforma web mobile-first que:
 | Nome | Papel | GitHub | Email |
 |------|-------|--------|-------|
 | Graziela Martins | UI/UX Designer | [@gmsc-byte](https://github.com/gmsc-byte) | gmsc@cesar.school |
-| João Cassemiro | UI/UX Designer | [@usuario](#) | jpslc@cesar.school |
+| João Cassemiro | UI/UX Designer | [@jpcassemiro0](https://github.com/jpcassemiro0) | jpslc@cesar.school |
 | Maria Eduarda Bessa | UI/UX Designer | [@EduardaBessa](https://github.com/EduardaBessa) | merbc2@cesar.school |
 
 </details>
