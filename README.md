@@ -103,6 +103,8 @@ Uma plataforma web mobile-first que:
 - JavaScript
 - HTML5
 - CSS3
+- React
+- Typescript
 
 ### Backend
 - Python
