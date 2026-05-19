@@ -182,7 +182,6 @@ Uma plataforma web mobile-first que:
 |------|-------|--------|-------|
 | Elian Cunha | Desenvolvimento ... | [@eliancunha](https://github.com/eliancunha) | egac@cesar.school |
 | Gabriel Rocha | Desenvolvimento ... | [@gabrielNFR](https://github.com/GabrielNFR) | gnfr@cesar.school |
-| José Ernesto Domingues | Desenvolvimento ... | [@jetd-ernesto](https://github.com/jetd-ernesto) | jetd@cesar.school |
 | Lucas Berenguer | Desenvolvimento... | [@lucasberenguer](https://github.com/lucasberenguer) | lbas@cesar.school |
 | Luiz Braga | Banco de Dados | [@eduardommb](https://github.com/eduardommb) | lemb@cesar.school |
 | Matheus Britto | Banco de Dados | [@MGBcode](https://github.com/MGBcode) | mgb3@cesar.school |
