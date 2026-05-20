@@ -14,7 +14,7 @@ export const Route = createFileRoute("/recuperar-codigo")({
 
 function Page() {
   const navigate = useNavigate();
-  const refs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
+  const refs = useRef<Array<HTMLInputElement | null>>([]);
   return (
     <AuthLayout>
       <h1 className="font-display text-3xl text-ink">Enviamos um código!</h1>
@@ -33,14 +33,16 @@ function Page() {
             Código (4 dígitos)
           </span>
           <div className="flex gap-3">
-            {refs.map((r, i) => (
+            {[0, 1, 2, 3].map((i) => (
               <input
                 key={i}
-                ref={r}
+                ref={(element) => {
+                  refs.current[i] = element;
+                }}
                 inputMode="numeric"
                 maxLength={1}
                 onChange={(e) => {
-                  if (e.target.value && i < 3) refs[i + 1].current?.focus();
+                  if (e.target.value && i < 3) refs.current[i + 1]?.focus();
                 }}
                 className="aspect-square w-full max-w-16 rounded-2xl border border-border bg-card text-center font-display text-2xl outline-none transition focus:border-rose-deep focus:ring-2 focus:ring-rose-deep/30"
               />
