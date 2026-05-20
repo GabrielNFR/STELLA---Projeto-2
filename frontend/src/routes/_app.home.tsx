@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
+import { Card } from "@/components/ui-bits/PageHeader";
 import { AvatarPlaceholder } from "@/components/Avatar3D";
 import {
-  Calendar,
   ChevronRight,
   FlaskConical,
   HeartPulse,
@@ -12,6 +11,7 @@ import {
   Search,
   Video,
 } from "lucide-react";
+import { useEffect, useState } from "react"; 
 
 export const Route = createFileRoute("/_app/home")({
   head: () => ({ meta: [{ title: "Home — STELLA" }] }),
@@ -34,7 +34,32 @@ const shortcuts = [
   { to: "/como-estou-hoje", label: "Como estou hoje?", icon: HeartPulse },
 ] as const;
 
+interface FaseTratamento {
+  id: number;
+  nome: string;
+  ordem_cronologica: number;
+  status: 'concluida' | 'atual' | 'pendente';
+  descricao: string;
+}
+
 function HomePage() {
+  const [fases, setFases] = useState<FaseTratamento[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/tratamento/fases/')
+      .then(res => res.json())
+      .then((dados) => {
+        setFases(dados);
+        setLoading(false);
+      });
+  }, []);
+
+  const total = fases.length;
+  const currentFaseObj = fases.find(f => f.status === 'atual');
+  const finished = fases.filter(f => f.status === 'concluida').length;
+  const progressPercent = total === 0 ? 0 : Math.round((finished / total) * 100);
+
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-4">
@@ -61,7 +86,9 @@ function HomePage() {
             <div className="text-xs uppercase tracking-[0.2em] text-rose-deep">
               Fase atual
             </div>
-            <div className="font-display text-xl text-ink">Estimulação ovariana</div>
+            <div className="font-display text-xl text-ink">
+              {loading ? "Carregando..." : currentFaseObj ? currentFaseObj.nome : "Aguardando Protocolo"}
+            </div>
           </div>
           <Link
             to="/timeline"
@@ -71,10 +98,10 @@ function HomePage() {
           </Link>
         </div>
         <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-rose-soft/40">
-          <div className="h-full w-[10%] rounded-full bg-rose-deep" />
+          <div className="h-full rounded-full bg-rose-deep transition-all duration-1000" style={{ width: `${progressPercent}%` }} />
         </div>
         <div className="mt-2 text-right text-xs text-muted-foreground">
-          10% completo
+          {progressPercent}% completo
         </div>
       </Card>
 
@@ -98,7 +125,7 @@ function HomePage() {
                   className="h-4 w-4 accent-rose-deep"
                 />
                 <span className="font-display text-rose-deep w-14">{e.time}</span>
-                <span className={e.done ? "line-through text-muted-foreground" : ""}>
+                <span className={e.done ? "line-through text-muted-foreground" : "text-ink"}>
                   {e.label}
                 </span>
               </li>
@@ -106,80 +133,24 @@ function HomePage() {
           </ul>
         </Card>
 
-        <Card>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-display text-xl text-ink">March 2024</h2>
-            <Calendar className="h-5 w-5 text-rose-deep" />
-          </div>
-          <MiniCalendar />
-        </Card>
-      </div>
-
-      <div>
-        <h2 className="mb-4 font-display text-xl text-ink">Atalhos</h2>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-          {shortcuts.map(({ to, label, icon: Icon }) => (
-            <Link
-              key={to}
-              to={to}
-              className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-rose-soft/60 text-rose-deep group-hover:bg-rose-deep group-hover:text-primary-foreground transition">
-                <Icon className="h-5 w-5" />
-              </span>
-              <span className="text-sm font-medium text-ink">{label}</span>
-            </Link>
-          ))}
+        <div className="space-y-6">
+            <h2 className="font-display text-xl text-ink">Acessos rápidos</h2>
+            <nav className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-2">
+              {shortcuts.map((s) => (
+                <Link
+                  key={s.label}
+                  to={s.to}
+                  className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card p-4 text-center transition-colors hover:bg-rose-soft/20"
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-rose-soft/40 text-rose-deep">
+                    <s.icon className="h-5 w-5" />
+                  </span>
+                  <span className="text-xs font-medium text-ink">{s.label}</span>
+                </Link>
+              ))}
+            </nav>
         </div>
       </div>
     </div>
   );
 }
-
-function MiniCalendar() {
-  const days = ["S", "M", "T", "W", "T", "F", "S"];
-  const grid = [
-    [30, 31, 1, 2, 3, 4, 5],
-    [6, 7, 8, 9, 10, 11, 12],
-    [13, 14, 15, 16, 17, 18, 19],
-    [20, 21, 22, 23, 24, 25, 26],
-    [27, 28, 29, 30, 1, 2, 3],
-  ];
-  const today = 12;
-  const eventDays = new Set([5, 12, 18, 23]);
-  return (
-    <div>
-      <div className="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
-        {days.map((d, i) => (
-          <div key={i} className="py-1">{d}</div>
-        ))}
-      </div>
-      <div className="mt-1 grid grid-cols-7 gap-1 text-center text-sm">
-        {grid.flat().map((n, i) => {
-          const inMonth = (i >= 2 && i < 33);
-          const isToday = inMonth && n === today;
-          const hasEvent = inMonth && eventDays.has(n);
-          return (
-            <button
-              key={i}
-              className={[
-                "aspect-square rounded-full transition",
-                !inMonth ? "text-muted-foreground/40" : "text-ink hover:bg-rose-soft/40",
-                isToday ? "bg-rose-deep text-primary-foreground hover:bg-rose-deep" : "",
-              ].join(" ")}
-            >
-              <span className="relative">
-                {n}
-                {hasEvent && !isToday && (
-                  <span className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-rose-deep" />
-                )}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-export { PageHeader };
