@@ -4,7 +4,13 @@ import { AmareLogo } from "@/components/brand/AmareLogo";
 import { StellaLogo } from "@/components/brand/StellaLogo";
 import { Bell, Eye, EyeOff } from "lucide-react";
 
+// Validate search params (se estamos vindo de um convite de copiloto)
 export const Route = createFileRoute("/login")({
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      inviteToken: (search.inviteToken as string) || undefined,
+    }
+  },
   head: () => ({
     meta: [
       { title: "Entrar — AMARE × STELLA" },
@@ -16,20 +22,36 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const searchParams = Route.useSearch();
   const [showPwd, setShowPwd] = useState(false);
 
   return (
     <AuthLayout>
-      <div className="rounded-2xl bg-rose-soft/40 p-4 text-sm text-ink/80 flex gap-3">
-        <Bell className="mt-0.5 h-5 w-5 shrink-0 text-rose-deep" />
-        <div>
-          <strong>Primeira vez aqui?</strong>
-          <p className="mt-1">
-            Seu acesso será criado pela Clínica AMARE após sua primeira
-            consulta. Entre em contato se não recebeu suas credenciais.
-          </p>
+      {searchParams.inviteToken ? (
+        <div className="rounded-2xl bg-emerald-500/10 p-4 text-sm text-ink/80 flex gap-3">
+          <Bell className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+          <div>
+            <strong>Convite Vinculado</strong>
+            <p className="mt-1">
+              Faça login (ou crie seu acesso de Copiloto) para ativar o convite.
+            </p>
+            <span className="text-xs text-muted-foreground mt-2 block break-all">
+              Token: {searchParams.inviteToken}
+            </span>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="rounded-2xl bg-rose-soft/40 p-4 text-sm text-ink/80 flex gap-3">
+          <Bell className="mt-0.5 h-5 w-5 shrink-0 text-rose-deep" />
+          <div>
+            <strong>Primeira vez aqui?</strong>
+            <p className="mt-1">
+              Seu acesso será criado pela Clínica AMARE após sua primeira
+              consulta. Entre em contato se não recebeu suas credenciais.
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="mt-8">
         <h1 className="font-display text-3xl text-ink">Seja bem-vinda!</h1>
