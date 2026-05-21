@@ -265,7 +265,6 @@ A aplicação estará disponível em `http://localhost:8000`
 - **Protótipo de Baixa Fidelidade** - [Acessar Figma](https://www.figma.com/design/ZLL48wZw7k46SFmisSLWfX/Stella-Prototype-Lo-Fi?node-id=0-1&p=f&t=CSNVeULHPBKwifRN-0)
 - **Moodboard** - [Acessar Canva](https://www.canva.com/design/DAHDvoMTJLM/hqSTHFc9RPufExeDf4PjRQ/edit)
 - **Protótipo de Alta Fidelidade** - Previsto para Sprint 2
-- **Sistema de Design** - Em construção
 
 </details>
 
