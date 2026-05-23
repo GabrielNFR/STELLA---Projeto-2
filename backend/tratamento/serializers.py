@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import EventoAgenda, FaseTratamento, ConviteCopiloto
+from .models import EventoAgenda, FaseTratamento, ConviteCopiloto, Diario
 
 
 class FaseTratamentoSerializer(serializers.ModelSerializer):
@@ -13,6 +13,25 @@ class EventoAgendaSerializer(serializers.ModelSerializer):
         model = EventoAgenda
         fields = '__all__'
         read_only_fields = ['id', 'criado_em', 'atualizado_em']
+
+class DiarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Diario
+        fields = [
+            'id',
+            'humor',
+            'sintomas',
+            'condicoes_fisiologicas',
+            'notas',
+            'criado_em',
+        ]
+        read_only_fields = ['id', 'criado_em']
+
+    def validate_humor(self, value):
+        if not value:
+            raise serializers.ValidationError("É necessário informar o humor do check-in.")
+        return value
+
 
 class ConviteCopilotoSerializer(serializers.ModelSerializer):
     class Meta:

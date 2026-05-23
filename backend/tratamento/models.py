@@ -80,3 +80,18 @@ class VinculoCopiloto(models.Model):
 
     def __str__(self):
         return f"Co-piloto: {self.copiloto.username} (Paciente: {self.paciente.username})"
+
+
+class Diario(models.Model):
+    paciente = models.ForeignKey(User, on_delete=models.CASCADE, related_name='diarios')
+    humor = models.CharField(max_length=50)
+    sintomas = models.JSONField(default=list, blank=True)
+    condicoes_fisiologicas = models.JSONField(default=list, blank=True)
+    notas = models.TextField(blank=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-criado_em']
+
+    def __str__(self):
+        return f"Check-in de {self.paciente.username} em {self.criado_em:%d/%m/%Y %H:%M}"

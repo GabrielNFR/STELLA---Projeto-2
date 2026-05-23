@@ -24,6 +24,41 @@ function LoginPage() {
   const navigate = useNavigate();
   const searchParams = Route.useSearch();
   const [showPwd, setShowPwd] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:8000/api/auth/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.detail || "Não foi possível entrar.");
+      }
+
+      localStorage.setItem("authToken", data.token);
+      localStorage.setItem("authUser", JSON.stringify(data.user));
+
+      navigate({ to: "/home" });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Não foi possível entrar.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <AuthLayout>
@@ -60,17 +95,13 @@ function LoginPage() {
         </p>
       </div>
 
-      <form
-        className="mt-6 space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          navigate({ to: "/home" });
-        }}
-      >
+      <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
         <Field label="E-mail">
           <input
             type="email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="voce@email.com"
             className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm outline-none transition focus:border-rose-deep focus:ring-2 focus:ring-rose-deep/30"
           />
@@ -91,6 +122,8 @@ function LoginPage() {
             <input
               type={showPwd ? "text" : "password"}
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               className="w-full rounded-xl border border-border bg-card px-4 py-3 pr-11 text-sm outline-none transition focus:border-rose-deep focus:ring-2 focus:ring-rose-deep/30"
             />
@@ -105,11 +138,14 @@ function LoginPage() {
           </div>
         </Field>
 
+        {error ? <p className="text-sm text-rose-deep">{error}</p> : null}
+
         <button
           type="submit"
-          className="mt-2 w-full rounded-full bg-rose-deep py-3 text-sm font-medium text-primary-foreground shadow-card transition hover:brightness-110 active:scale-[0.99]"
+          disabled={isSubmitting}
+          className="mt-2 w-full rounded-full bg-rose-deep py-3 text-sm font-medium text-primary-foreground shadow-card transition hover:brightness-110 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70"
         >
-          Entrar
+          {isSubmitting ? "Entrando..." : "Entrar"}
         </button>
 
         <Link

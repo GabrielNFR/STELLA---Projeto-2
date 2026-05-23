@@ -1,6 +1,7 @@
-from rest_framework import generics
-from .models import EventoAgenda, FaseTratamento, ConviteCopiloto
-from .serializers import EventoAgendaSerializer, FaseTratamentoSerializer, ConviteCopilotoSerializer
+from rest_framework import generics, permissions
+from rest_framework.authentication import TokenAuthentication
+from .models import EventoAgenda, FaseTratamento, ConviteCopiloto, Diario
+from .serializers import EventoAgendaSerializer, FaseTratamentoSerializer, ConviteCopilotoSerializer, DiarioSerializer
 from django.contrib.auth.models import User
 
 class FaseTratamentoList(generics.ListAPIView):
@@ -11,6 +12,18 @@ class FaseTratamentoList(generics.ListAPIView):
 class EventoAgendaListCreate(generics.ListCreateAPIView):
     queryset = EventoAgenda.objects.all()
     serializer_class = EventoAgendaSerializer
+
+
+class DiarioListCreate(generics.ListCreateAPIView):
+    serializer_class = DiarioSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Diario.objects.filter(paciente=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(paciente=self.request.user)
 
 
 # Mock user
