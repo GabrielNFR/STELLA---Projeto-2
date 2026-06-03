@@ -18,7 +18,7 @@ type Med = { id:number; nome: string; dose: string; horarios: string[]; data_ini
 
 function Page() {
   const [open, setOpen] = useState(false);
-  const [alertados, setAlertados] =useState<string[]>([]);
+  //const [alertados, setAlertados] =useState<string[]>([]);
   const [form, setForm] = useState({ nome: "", dose: "", horarios: "", data_inicio: "", data_fim: "" });
   const queryClient = useQueryClient();
   const {data: meds = [],isLoading,isError,} = useQuery<Med[]>({queryKey: ["medicacoes"],queryFn: fetchMedicacoes,});
@@ -57,15 +57,15 @@ function Page() {
     setOpen(false);
   };
   
-  useEffect(() => {
-  verificarMedicacoes();
+  //useEffect(() => {
+  //verificarMedicacoes();
 
-  const interval = setInterval(() => {
-    verificarMedicacoes();
-  }, 60000);
+ // const interval = setInterval(() => {
+    //verificarMedicacoes();
+  //}, 60000);
 
-  return () => clearInterval(interval);
-}, [meds, alertados]);
+  //return () => clearInterval(interval);
+//}, [meds, alertados]);
 
   if (isLoading) {
   return <div>Carregando medicações...</div>;
@@ -76,43 +76,43 @@ function Page() {
   }
 
 
-  function verificarMedicacoes() {
-  const agora = new Date();
+  //function verificarMedicacoes() {
+  //const agora = new Date();
 
-  const hoje =
-    agora.toISOString().split("T")[0];
+  //const hoje =
+    //agora.toISOString().split("T")[0];
 
-  const horaAtual =
-    agora.getHours().toString().padStart(2, "0") +
-    ":" +
-    agora.getMinutes().toString().padStart(2, "0");
+  //const horaAtual =
+    //agora.getHours().toString().padStart(2, "0") +
+    //":" +
+    //agora.getMinutes().toString().padStart(2, "0");
 
-  meds.forEach((med) => {
-    const chave = `${med.id}-${horaAtual}`;
+  //meds.forEach((med) => {
+    //const chave = `${med.id}-${horaAtual}`;
 
-    const dentroDoPeriodo =
-      hoje >= med.data_inicio &&
-      (
-        !med.data_fim ||
-        hoje <= med.data_fim
-      );
+    //const dentroDoPeriodo =
+      //hoje >= med.data_inicio &&
+      //(
+        //!med.data_fim ||
+       // hoje <= med.data_fim
+     // );
 
-    if (
-      dentroDoPeriodo &&
-      med.horarios.includes(horaAtual) &&
-      !alertados.includes(chave)
-    ) {
-      alert(
-        `Hora de tomar ${med.nome} (${med.dose})`
-      );
+    //if (
+      //dentroDoPeriodo &&
+      //med.horarios.includes(horaAtual) &&
+      //!alertados.includes(chave)
+    //) {
+      //alert(
+       // `Hora de tomar ${med.nome} (${med.dose})`
+      //);
 
-      setAlertados((prev) => [
-        ...prev,
-        chave,
-      ]);
-    }
-  });
-}
+      //setAlertados((prev) => [
+       // ...prev,
+       // chave,
+      //]);
+    //}
+  //});
+//}
 
   return (
     <div>

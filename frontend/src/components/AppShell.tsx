@@ -21,6 +21,7 @@ import {
 import { AmareLogo } from "@/components/brand/AmareLogo";
 import { StellaLogo } from "@/components/brand/StellaLogo";
 import { AvatarPlaceholder } from "@/components/Avatar3D";
+import { MedicationAlertManager }from "@/components/MedicationAlertManager";
 
 export const navItems = [
   { to: "/home", label: "Home", icon: Home },
@@ -116,6 +117,7 @@ export function AppShell() {
 
       {/* Main */}
       <div className="flex min-w-0 flex-1 flex-col">
+        <MedicationAlertManager />
         <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-background/85 px-4 py-3 backdrop-blur lg:px-8">
           <button
             onClick={() => setMobileOpen(true)}
