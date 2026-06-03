@@ -4,12 +4,14 @@ import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
 import { Modal, fieldClass, labelClass, submitBtnClass } from "@/components/ui-bits/Modal";
 import { Upload, FileText, Download } from "lucide-react";
 
+const API_BASE_URL = "http://127.0.0.1:8000";
+
 export const Route = createFileRoute("/_app/exames")({
   head: () => ({ meta: [{ title: "Hub de exames — STELLA" }] }),
   component: Page,
 });
 
-type Exam = { name: string; date: string; source: string; tag: string };
+type Exam = { name: string; date: string; source: string; tag: string; fileUrl?: string };
 
 const initial: Exam[] = [
   { name: "Ultrassom transvaginal", date: "08/03/2024", source: "Clínica AMARE", tag: "Imagem" },
@@ -22,16 +24,86 @@ const initial: Exam[] = [
 function Page() {
   const [exams, setExams] = useState<Exam[]>(initial);
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", date: "", source: "", tag: "Sangue" });
+  const [form, setForm] = useState<{
+    name: string;
+    date: string;
+    source: string;
+    tag: string;
+    file: File | null;
+  }>({
+    name: "",
+    date: "",
+    source: "",
+    tag: "Sangue",
+    file: null,
+  });
 
-  const submit = (e: React.FormEvent) => {
+  const downloadExam = async (exam: Exam) => {
+    if (!exam.fileUrl) return;
+
+    try {
+      const response = await fetch(exam.fileUrl);
+      if (!response.ok) throw new Error("Falha ao baixar o arquivo");
+      const blob = await response.blob();
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      const defaultName = `${exam.name.replace(/\s+/g, "-").toLowerCase()}.pdf`;
+      const fileNameFromUrl = exam.fileUrl.split("/").pop()?.split("?")[0];
+      link.download = fileNameFromUrl || defaultName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error(error);
+      window.alert("Não foi possível baixar o exame. Verifique a conexão ou o link do arquivo.");
+    }
+  };
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim()) return;
+    if (!form.name.trim() || !form.file) return;
+
     const date = form.date
       ? form.date.split("-").reverse().join("/")
       : new Date().toLocaleDateString("pt-BR");
-    setExams([{ name: form.name.trim(), date, source: form.source.trim() || "Paciente", tag: form.tag }, ...exams]);
-    setForm({ name: "", date: "", source: "", tag: "Sangue" });
+
+    const formData = new FormData();
+    formData.append("name", form.name.trim());
+    formData.append("date", date);
+    formData.append("source", form.source.trim() || "Paciente");
+    formData.append("tag", form.tag);
+    formData.append("file", form.file);
+
+    let fileUrl: string | undefined;
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/tratamento/exames/`, {
+        method: "POST",
+        body: formData,
+      });
+      if (response.ok) {
+        const result = await response.json();
+        fileUrl = result.fileUrl ?? result.file ?? undefined;
+      } else {
+        console.warn("Upload de exame falhou, usando pré-visualização local", response.status);
+      }
+    } catch (error) {
+      console.warn("Erro no upload do exame:", error);
+    }
+
+    setExams([
+      {
+        name: form.name.trim(),
+        date,
+        source: form.source.trim() || "Paciente",
+        tag: form.tag,
+        fileUrl: fileUrl ?? URL.createObjectURL(form.file),
+      },
+      ...exams,
+    ]);
+
+    setForm({ name: "", date: "", source: "", tag: "Sangue", file: null });
     setOpen(false);
   };
 
@@ -51,21 +123,28 @@ function Page() {
         }
       />
       <div className="grid gap-3">
-        {exams.map((e, i) => (
-          <Card key={i} className="flex items-center gap-4">
+        {exams.map((exam, index) => (
+          <Card key={index} className="flex items-center gap-4">
             <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-soft/60 text-rose-deep">
               <FileText className="h-5 w-5" />
             </span>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-baseline gap-2">
-                <h3 className="font-display text-lg">{e.name}</h3>
-                <span className="rounded-full bg-accent px-2 py-0.5 text-xs">{e.tag}</span>
+                <h3 className="font-display text-lg">{exam.name}</h3>
+                <span className="rounded-full bg-accent px-2 py-0.5 text-xs">{exam.tag}</span>
               </div>
               <div className="text-xs text-muted-foreground">
-                {e.date} · {e.source}
+                {exam.date} · {exam.source}
               </div>
             </div>
-            <button className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-2 text-sm hover:bg-rose-soft/40">
+            <button
+              type="button"
+              onClick={() => exam.fileUrl && downloadExam(exam)}
+              disabled={!exam.fileUrl}
+              className={`inline-flex items-center gap-1 rounded-full border border-border px-3 py-2 text-sm transition ${
+                exam.fileUrl ? "hover:bg-rose-soft/40" : "cursor-not-allowed opacity-50"
+              }`}
+            >
               <Download className="h-4 w-4" /> Baixar
             </button>
           </Card>
@@ -117,7 +196,18 @@ function Page() {
               placeholder="Ex: Lab. Sabin"
             />
           </div>
-          <button type="submit" className={submitBtnClass}>Salvar exame</button>
+          <div>
+            <label className={labelClass}>Arquivo PDF</label>
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={(e) => setForm({ ...form, file: e.currentTarget.files?.[0] ?? null })}
+              className={fieldClass}
+            />
+          </div>
+          <button type="submit" className={submitBtnClass}>
+            Salvar exame
+          </button>
         </form>
       </Modal>
     </div>
