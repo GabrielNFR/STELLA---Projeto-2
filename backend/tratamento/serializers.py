@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import EventoAgenda, FaseTratamento, ConviteCopiloto, Diario
+from .models import EventoAgenda, FaseTratamento, ConviteCopiloto, Diario, Medicacao
 
 
 class FaseTratamentoSerializer(serializers.ModelSerializer):
@@ -48,3 +48,8 @@ class ConviteCopilotoSerializer(serializers.ModelSerializer):
         if not data.get('nome_identificador'):
             raise serializers.ValidationError("É necessário preencher um nome para o parceiro/familiar.")
         return data
+    
+class MedicacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medicacao
+        fields = "__all__"

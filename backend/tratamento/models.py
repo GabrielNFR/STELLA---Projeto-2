@@ -95,3 +95,19 @@ class Diario(models.Model):
 
     def __str__(self):
         return f"Check-in de {self.paciente.username} em {self.criado_em:%d/%m/%Y %H:%M}"
+    
+
+class Medicacao(models.Model):
+    nome = models.CharField(max_length=100)
+    dose = models.CharField(max_length=50)
+
+    data_inicio = models.DateField()
+    data_fim = models.DateField(
+        null=True,
+        blank=True
+    )
+
+    horarios = models.JSONField()
+    
+    def __str__(self):
+        return self.nome

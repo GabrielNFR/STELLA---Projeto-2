@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FaseTratamento, ConviteCopiloto, VinculoCopiloto
+from .models import FaseTratamento, ConviteCopiloto, VinculoCopiloto,Medicacao
 
 @admin.register(FaseTratamento)
 class FaseTratamentoAdmin(admin.ModelAdmin):
@@ -8,6 +8,15 @@ class FaseTratamentoAdmin(admin.ModelAdmin):
     search_fields = ('nome',)
     ordering = ('ordem_cronologica',)
 
+@admin.register(Medicacao)
+class MedicacaoAdmin(admin.ModelAdmin):
+    list_display = (
+        'nome',
+        'dose',
+        'data_inicio',
+        'data_fim'
+    )
+    
 @admin.register(ConviteCopiloto)
 class ConviteCopilotoAdmin(admin.ModelAdmin):
     list_display = ('paciente', 'nome_identificador', 'status', 'criado_em')
