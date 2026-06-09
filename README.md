@@ -165,7 +165,7 @@ Uma plataforma web mobile-first que:
 | Recurso | Descrição | Link |
 |---------|-----------|------|
 | **Aplicação** | Deploy em produção (Azure) | [Em breve](#) |
-| **Jira** | Backlog e sprints | [Acessar Jira](https://cesar-team-y6k4ko55.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog) |
+| **Jira** | Backlog e sprints | [Acessar Jira](https://projetos2stella.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog) |
 | **Trello** | Organização e planejamento | [Acessar Trello](https://trello.com/invite/b/69ba9b71b141e6e8e153a992/ATTI23f2f6335312552a10bb466777fa5ade4485719E/projeto-2) |
 | **User Stories** | Histórias de usuário completas | [Google Docs](https://docs.google.com/document/d/1RIJzqYiuKv_tJb9Deknhmri_eNLkZNZRwsHHddazOM4/edit?tab=t.0) |
 | **Google Sites** | Documentação do projeto | [Acessar Site](https://sites.google.com/cesar.school/stella/home) |
