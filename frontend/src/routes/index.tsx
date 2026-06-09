@@ -59,7 +59,7 @@ function Landing() {
       <main className="relative flex-1 overflow-hidden">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[24rem] bg-gradient-to-b from-transparent via-rose-soft/20 to-rose-soft/55" />
 
-        <section className="relative z-10 mx-auto grid w-full max-w-[1440px] gap-8 px-5 pb-8 pt-8 lg:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)] lg:items-center lg:gap-10 lg:px-10 lg:pb-4 lg:pt-10">
+        <section className="relative z-10 mx-auto mt-6 grid w-full max-w-[1440px] gap-8 px-5 pb-8 pt-8 lg:mt-12 lg:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)] lg:items-center lg:gap-10 lg:px-10 lg:pb-4 lg:pt-10">
           <div className="flex max-w-[620px] flex-col justify-center lg:pt-8">
             <img
               src="/logo-amare.png"
