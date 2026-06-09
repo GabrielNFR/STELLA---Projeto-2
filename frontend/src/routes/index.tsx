@@ -100,16 +100,12 @@ function Landing() {
           </ul>
         </div>
 
-        <div className="relative">
-          <StakeholdersIllustration className="aspect-[4/5] w-full max-w-lg mx-auto" />
-          <p className="mt-3 text-center text-xs text-muted-foreground">
-            Equipe médica AMARE — ilustração
-          </p>
+        <div className="relative lg:-ml-8">
+          <StakeholdersIllustration className="aspect-[4/5] w-full max-w-lg ml-0 mr-auto" />
         </div>
       </section>
 
-      <footer className="mx-auto flex max-w-7xl items-center justify-between px-5 py-6 lg:px-10">
-        <span className="text-xs text-muted-foreground">© AMARE Ginecologia e Reprodução Humana</span>
+      <footer className="mx-auto flex max-w-7xl items-center justify-end px-5 py-6 lg:px-10">
         <StellaLogo />
       </footer>
     </div>
