@@ -73,6 +73,12 @@ function Landing() {
             </h1>
 
             <div className="mt-4 flex items-start gap-3 rounded-2xl border border-border bg-card/75 p-4 shadow-[0_8px_24px_rgba(111,64,59,0.08)] backdrop-blur-sm lg:max-w-[36rem]">
+              <img
+                src="/retangulo-rosa-notificacao-home.png"
+                alt=""
+                aria-hidden="true"
+                className="h-12 w-auto shrink-0"
+              />
               <Bell className="mt-0.5 h-5 w-5 shrink-0 text-rose-deep" />
               <p className="text-sm text-ink/80">
                 <strong>Paciente nova?</strong> Seu acesso será criado pela equipe após sua primeira consulta.{" "}
