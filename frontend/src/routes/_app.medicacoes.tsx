@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
 import { Modal, fieldClass, labelClass, submitBtnClass } from "@/components/ui-bits/Modal";
 import { Pill, Plus, Clock } from "lucide-react";

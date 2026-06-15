@@ -25,7 +25,7 @@ function Page() {
         className="mt-8 space-y-6"
         onSubmit={(e) => {
           e.preventDefault();
-          navigate({ to: "/login" });
+          navigate({ to: "/login", search: { inviteToken: undefined } });
         }}
       >
         <div>

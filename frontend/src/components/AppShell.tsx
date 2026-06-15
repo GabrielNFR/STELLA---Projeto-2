@@ -22,6 +22,7 @@ import { AmareLogo } from "@/components/brand/AmareLogo";
 import { StellaLogo } from "@/components/brand/StellaLogo";
 import { MedicationAlertManager }from "@/components/MedicationAlertManager";
 import { ProfileDropdown } from "@/components/ProfileDropdown";
+import { useUserProfile } from "@/lib/userProfileContext";
 
 export const navItems = [
   { to: "/home", label: "Home", icon: Home },
@@ -68,6 +69,7 @@ function SidebarLink({ to, label, Icon }: { to: string; label: string; Icon: typ
 
 export function AppShell() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user } = useUserProfile();
 
   return (
     <div id="app-shell-root" className="flex min-h-screen w-full bg-background app-shell-root">
@@ -145,7 +147,7 @@ export function AppShell() {
               <Bell className="h-5 w-5" />
               <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-rose-deep" />
             </Link>
-            <ProfileDropdown userName="Helena Albuquerque" size={36} />
+            <ProfileDropdown userName={user?.first_name || user?.username || "Usuário"} size={36} />
           </div>
         </header>
 

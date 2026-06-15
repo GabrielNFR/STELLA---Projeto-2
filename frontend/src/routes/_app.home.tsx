@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card } from "@/components/ui-bits/PageHeader";
 import { AvatarPlaceholder } from "@/components/Avatar3D";
+import { useUserProfile } from "@/lib/userProfileContext";
+import { buildApiUrl, buildImageUrl } from "@/lib/api";
 import {
   ChevronRight,
   FlaskConical,
@@ -45,10 +47,12 @@ interface FaseTratamento {
 function HomePage() {
   const [fases, setFases] = useState<FaseTratamento[]>([]);
   const [loading, setLoading] = useState(true);
+  const [imageErrored, setImageErrored] = useState(false);
+  const { user, profileImageVersion } = useUserProfile();
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/tratamento/fases/')
-      .then(res => res.json())
+    fetch(buildApiUrl("/api/tratamento/fases/"))
+      .then((res) => res.json())
       .then((dados) => {
         setFases(dados);
         setLoading(false);
@@ -60,10 +64,23 @@ function HomePage() {
   const finished = fases.filter(f => f.status === 'concluida').length;
   const progressPercent = total === 0 ? 0 : Math.round((finished / total) * 100);
 
+  const avatarUrl = buildImageUrl(user?.profile?.foto_perfil, profileImageVersion);
+  const showAvatar = Boolean(avatarUrl && !imageErrored);
+  const name = user?.first_name || "Helena Albuquerque";
+
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-4">
-        <AvatarPlaceholder name="Helena Albuquerque" size={64} />
+        {showAvatar ? (
+          <img
+            src={avatarUrl}
+            alt={name}
+            className="h-16 w-16 rounded-full object-cover"
+            onError={() => setImageErrored(true)}
+          />
+        ) : (
+          <AvatarPlaceholder name={name} size={64} />
+        )}
         <div>
           <h1 className="font-display text-3xl md:text-4xl text-ink">Oi, Helena!</h1>
           <p className="text-sm text-muted-foreground">

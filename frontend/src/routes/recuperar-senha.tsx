@@ -43,7 +43,7 @@ function Page() {
         >
           Continuar
         </button>
-        <Link to="/login" className="block text-center text-xs text-muted-foreground hover:text-ink">
+        <Link to="/login" search={{ inviteToken: undefined }} className="block text-center text-xs text-muted-foreground hover:text-ink">
           ← Voltar ao login
         </Link>
       </form>

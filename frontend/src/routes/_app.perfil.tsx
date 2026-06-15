@@ -3,8 +3,8 @@ import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
 import { AvatarPlaceholder } from "@/components/Avatar3D";
 import { Mail, Phone, MapPin, Cake, Heart, Stethoscope, LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-
-const API_BASE_URL = "http://localhost:8000";
+import { useUserProfile } from "@/lib/userProfileContext";
+import { buildApiUrl, buildImageUrl } from "@/lib/api";
 
 interface UserData {
   id: number;
@@ -31,6 +31,7 @@ export const Route = createFileRoute("/_app/perfil")({
 function Perfil() {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { user, refreshUser, setUser, profileImageVersion, updateProfilePhoto, logout } = useUserProfile();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -38,46 +39,17 @@ function Perfil() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    loadUserProfile();
-  }, []);
-
-  const loadUserProfile = async () => {
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-      navigate({ to: "/login" });
-      return;
+    if (user) {
+      setUserData(user);
+      setFormData(user);
+    } else {
+      refreshUser();
     }
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/tratamento/perfil/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
-
-      if (response.status === 401 || response.status === 403) {
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("authUser");
-        navigate({ to: "/login" });
-        return;
-      }
-
-      if (!response.ok) {
-        throw new Error("Erro ao carregar perfil");
-      }
-
-      const data = await response.json();
-      setUserData(data);
-      setFormData(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro ao carregar perfil");
-    }
-  };
+  }, [user, refreshUser]);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("authUser");
-    navigate({ to: "/login" });
+    logout();
+    navigate({ to: "/login", search: { inviteToken: undefined } });
   };
 
   const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +64,7 @@ function Perfil() {
     formDataToSend.append("foto_perfil", file);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/tratamento/perfil/foto/`, {
+      const response = await fetch(buildApiUrl("/api/tratamento/perfil/foto/"), {
         method: "PATCH",
         headers: {
           Authorization: `Token ${token}`,
@@ -105,14 +77,18 @@ function Perfil() {
       }
 
       const updatedProfile = await response.json();
-      if (userData) {
-        setUserData({
-          ...userData,
+      updateProfilePhoto(updatedProfile.foto_perfil);
+      if (user) {
+        const updatedUser = {
+          ...user,
           profile: {
-            ...userData.profile,
+            ...user.profile,
             foto_perfil: updatedProfile.foto_perfil,
           },
-        });
+        };
+        setUser(updatedUser);
+        setUserData(updatedUser);
+        setFormData(updatedUser);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao atualizar foto");
@@ -129,7 +105,7 @@ function Perfil() {
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/tratamento/perfil/`, {
+      const response = await fetch(buildApiUrl("/api/tratamento/perfil/"), {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -153,6 +129,7 @@ function Perfil() {
       }
 
       const updatedData = await response.json();
+      setUser(updatedData);
       setUserData(updatedData);
       setFormData(updatedData);
       setIsEditing(false);
@@ -163,14 +140,15 @@ function Perfil() {
     }
   };
 
+  const [imageErrored, setImageErrored] = useState(false);
+
   if (!userData) {
     return <div>Carregando...</div>;
   }
 
   const displayName = userData.first_name || userData.username;
-  const fotoUrl = userData.profile?.foto_perfil
-    ? `${API_BASE_URL}${userData.profile.foto_perfil}`
-    : undefined;
+  const fotoUrl = buildImageUrl(userData.profile?.foto_perfil, profileImageVersion);
+  const showImage = Boolean(fotoUrl && !imageErrored);
 
   return (
     <div className="space-y-8">
@@ -184,11 +162,12 @@ function Perfil() {
 
       <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
         <Card className="flex flex-col items-center text-center">
-          {fotoUrl ? (
+          {showImage ? (
             <img
               src={fotoUrl}
               alt={displayName}
               className="h-32 w-32 rounded-full object-cover"
+              onError={() => setImageErrored(true)}
             />
           ) : (
             <AvatarPlaceholder name={displayName} size={120} />

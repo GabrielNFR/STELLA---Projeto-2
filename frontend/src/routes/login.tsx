@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AmareLogo } from "@/components/brand/AmareLogo";
 import { StellaLogo } from "@/components/brand/StellaLogo";
 import { Bell, Eye, EyeOff } from "lucide-react";
+import { useUserProfile } from "@/lib/userProfileContext";
 
 // Validate search params (se estamos vindo de um convite de copiloto)
 export const Route = createFileRoute("/login")({
@@ -28,6 +29,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const { refreshUser } = useUserProfile();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,7 +53,7 @@ function LoginPage() {
 
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("authUser", JSON.stringify(data.user));
-
+      await refreshUser();
       navigate({ to: "/home" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Não foi possível entrar.");
