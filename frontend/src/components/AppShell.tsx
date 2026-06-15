@@ -20,8 +20,8 @@ import {
 } from "lucide-react";
 import { AmareLogo } from "@/components/brand/AmareLogo";
 import { StellaLogo } from "@/components/brand/StellaLogo";
-import { AvatarPlaceholder } from "@/components/Avatar3D";
 import { MedicationAlertManager }from "@/components/MedicationAlertManager";
+import { ProfileDropdown } from "@/components/ProfileDropdown";
 
 export const navItems = [
   { to: "/home", label: "Home", icon: Home },
@@ -145,9 +145,7 @@ export function AppShell() {
               <Bell className="h-5 w-5" />
               <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-rose-deep" />
             </Link>
-            <Link to="/perfil" className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              <AvatarPlaceholder name="Helena Albuquerque" size={36} />
-            </Link>
+            <ProfileDropdown userName="Helena Albuquerque" size={36} />
           </div>
         </header>
 

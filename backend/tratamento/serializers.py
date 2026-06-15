@@ -1,5 +1,45 @@
 from rest_framework import serializers
-from .models import EventoAgenda, FaseTratamento, ConviteCopiloto, Diario, Medicacao
+from .models import EventoAgenda, FaseTratamento, ConviteCopiloto, Diario, Medicacao, UserProfile
+from django.contrib.auth.models import User
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    """Serializer para o perfil estendido do usuário"""
+    class Meta:
+        model = UserProfile
+        fields = [
+            'id', 'foto_perfil', 'telefone', 'data_nascimento', 'cidade',
+            'medica_responsavel', 'protocolo', 'data_inicio_tratamento',
+            'criado_em', 'atualizado_em'
+        ]
+        read_only_fields = ['id', 'criado_em', 'atualizado_em']
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    """Serializer para dados do usuário com perfil estendido"""
+    profile = UserProfileSerializer(read_only=True)
+    
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'profile']
+        read_only_fields = ['id', 'username']
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    """Serializer para atualizar dados do usuário"""
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name']
+
+
+class ProfileUpdateSerializer(serializers.ModelSerializer):
+    """Serializer para atualizar dados do perfil do usuário"""
+    class Meta:
+        model = UserProfile
+        fields = [
+            'foto_perfil', 'telefone', 'data_nascimento', 'cidade',
+            'medica_responsavel', 'protocolo', 'data_inicio_tratamento'
+        ]
 
 
 class FaseTratamentoSerializer(serializers.ModelSerializer):

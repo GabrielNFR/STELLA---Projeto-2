@@ -63,7 +63,7 @@
   --ink: oklch(0.24 0.012 30);             /* near-black warm */
   --leaf: oklch(0.55 0.06 150);            /* subtle accent for success */
 
-  --background: var(--cream);
+  --background: #EFDCD3;
   --foreground: var(--ink);
 
   --card: oklch(0.985 0.005 70);
@@ -97,7 +97,7 @@
   --chart-4: oklch(0.78 0.05 40);
   --chart-5: oklch(0.5 0.07 20);
 
-  --sidebar: oklch(0.97 0.014 65);
+  --sidebar: #FAF4F0;
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--rose-deep);
   --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -153,5 +153,15 @@
   h4 {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
+    color: #A15663;
+  }
+
+  button:disabled,
+  button[aria-disabled="true"],
+  button.cursor-not-allowed,
+  button:disabled:hover,
+  button[aria-disabled="true"]:hover,
+  button.cursor-not-allowed:hover {
+    box-shadow: none !important;
   }
 }

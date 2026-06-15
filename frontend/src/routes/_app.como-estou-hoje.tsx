@@ -194,7 +194,7 @@ function Page() {
   ) => set(list.includes(item) ? list.filter((i) => i !== item) : [...list, item]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 como-estou-hoje-page">
       <PageHeader
         eyebrow="Check-in diário"
         title="Como você está hoje?"
@@ -209,10 +209,10 @@ function Page() {
               key={m}
               onClick={() => setMood(m)}
               className={[
-                "rounded-full px-4 py-2 text-sm transition",
+                "rounded-full px-4 py-2 text-sm transition active:bg-[#C17E81] active:text-primary-foreground",
                 mood === m
-                  ? "bg-rose-deep text-primary-foreground shadow-card"
-                  : "bg-rose-soft/40 text-ink hover:bg-rose-soft/70",
+                  ? "bg-[#C17E81] text-primary-foreground"
+                  : "bg-[#F3DBDB] text-ink hover:bg-[#D3B1AF]",
               ].join(" ")}
             >
               {m}
@@ -231,10 +231,10 @@ function Page() {
                 key={s}
                 onClick={() => toggle(picks, setPicks, s)}
                 className={[
-                  "rounded-full border px-4 py-2 text-sm transition",
+                  "rounded-full border px-4 py-2 text-sm transition active:bg-[#C17E81] active:text-primary-foreground",
                   on
-                    ? "border-rose-deep bg-rose-deep text-primary-foreground"
-                    : "border-border bg-card hover:border-rose-deep/50",
+                    ? "border-[#C17E81] bg-[#C17E81] text-primary-foreground"
+                    : "border-border bg-[#F3DBDB] text-ink hover:bg-[#D3B1AF]",
                 ].join(" ")}
               >
                 {s}
@@ -254,10 +254,10 @@ function Page() {
                 key={s}
                 onClick={() => toggle(phys, setPhys, s)}
                 className={[
-                  "rounded-full border px-4 py-2 text-sm transition",
+                  "rounded-full border px-4 py-2 text-sm transition active:bg-[#C17E81] active:text-primary-foreground",
                   on
-                    ? "border-rose-deep bg-rose-deep text-primary-foreground"
-                    : "border-border bg-card hover:border-rose-deep/50",
+                    ? "border-[#C17E81] bg-[#C17E81] text-primary-foreground"
+                    : "border-border bg-[#F3DBDB] text-ink hover:bg-[#D3B1AF]",
                 ].join(" ")}
               >
                 {s}
@@ -296,7 +296,7 @@ function Page() {
           type="button"
           onClick={handleSave}
           disabled={isSaving}
-          className="rounded-full bg-rose-deep px-6 py-3 text-sm text-primary-foreground shadow-card transition hover:brightness-110 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70"
+          className="rounded-full bg-[#F3DBDB] px-6 py-3 text-sm text-ink transition hover:bg-[#D3B1AF] active:bg-[#C17E81] active:text-primary-foreground disabled:cursor-not-allowed disabled:opacity-70 disabled:text-ink/70"
         >
           {isSaving ? "Salvando..." : "Salvar check-in"}
         </button>
