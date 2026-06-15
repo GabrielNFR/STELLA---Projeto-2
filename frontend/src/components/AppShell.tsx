@@ -70,9 +70,9 @@ export function AppShell() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen w-full bg-background">
+    <div id="app-shell-root" className="flex min-h-screen w-full bg-background app-shell-root">
       {/* Sidebar — desktop */}
-      <aside className="hidden lg:flex sticky top-0 h-screen w-72 shrink-0 flex-col border-r border-border bg-sidebar/80 backdrop-blur">
+      <aside className="hidden lg:flex sticky top-0 h-screen w-72 shrink-0 flex-col border-r border-border bg-sidebar backdrop-blur app-shell-sidebar">
         <div className="px-5 pt-6 pb-4">
           <AmareLogo />
         </div>
@@ -95,7 +95,7 @@ export function AppShell() {
             className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 w-72 max-w-[85vw] bg-sidebar p-4 shadow-soft animate-in slide-in-from-left">
+          <div className="absolute inset-y-0 left-0 w-72 max-w-[85vw] bg-sidebar p-4 shadow-soft animate-in slide-in-from-left app-shell-mobile-drawer">
             <div className="flex items-center justify-between pb-4">
               <AmareLogo />
               <button
@@ -149,7 +149,7 @@ export function AppShell() {
           </div>
         </header>
 
-        <main className="flex-1 px-4 py-6 lg:px-10 lg:py-10 pb-24 lg:pb-10">
+        <main className="flex-1 px-4 py-6 lg:px-10 lg:py-10 pb-24 lg:pb-10 app-shell-main-content">
           <Outlet />
         </main>
 

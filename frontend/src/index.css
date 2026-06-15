@@ -141,10 +141,25 @@
 
   html,
   body {
+    min-height: 100%;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+  }
+
+  #app-shell-root,
+  .app-shell-root {
+    background-color: var(--background) !important;
+  }
+
+  .app-shell-sidebar,
+  .app-shell-mobile-drawer {
+    background-color: #FAF4F0 !important;
+  }
+
+  .app-shell-main-content {
+    background-color: transparent !important;
   }
 
   h1,
