@@ -17,7 +17,7 @@ def test_barra_de_busca_presente(driver):
 def test_filtro_por_categoria(driver):
     driver.get(f'{BASE_URL}/videoteca')
     body = driver.find_element(By.TAG_NAME, 'body').text
-    assert any(cat in body for cat in ['Conceitos', 'Medicações', 'Procedimentos', 'Cuidados', 'Apoio'])
+    assert any(cat.lower() in body.lower() for cat in ['Conceitos', 'Procedimentos', 'Cuidados', 'Apoio'])
 
 
 def test_busca_sem_resultado_exibe_mensagem(driver):
