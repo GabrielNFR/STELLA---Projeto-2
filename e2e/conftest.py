@@ -3,10 +3,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-BASE_URL = os.environ.get(
-    'STELLA_URL',
-    'https://lively-pebble-0ccda8e0f.7.azurestaticapps.net',
-)
+BASE_URL = os.environ.get('STELLA_URL') or 'https://lively-pebble-0ccda8e0f.7.azurestaticapps.net'
 
 
 @pytest.fixture
