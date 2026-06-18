@@ -9,12 +9,12 @@ export const Route = createFileRoute("/_app/videoteca")({
 });
 
 const videos = [
-  { title: "O que é FIV?", duration: "4:20", category: "Conceitos" },
-  { title: "Como aplicar Gonal-F", duration: "3:05", category: "Medicações" },
-  { title: "Como aplicar Cetrotide", duration: "2:48", category: "Medicações" },
-  { title: "O dia da punção", duration: "5:12", category: "Procedimentos" },
-  { title: "Cuidados após a transferência", duration: "3:40", category: "Cuidados" },
-  { title: "Bem-estar emocional", duration: "6:00", category: "Apoio" },
+  { title: "Primeiras 24h após a cirurgia", duration: "1:06", category: "Cuidados", url: "https://www.instagram.com/reel/DZXmMOFvC60/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA==" },
+  { title: "Genética pode impedir um casal de ter filhos?", duration: "0:59", category: "Conceitos", url: "https://www.instagram.com/reel/DZPaezkFdC-/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
+  { title: "Primeira consulta: oque esperar?", duration: "1:34", category: "Procedimentos",url: "https://www.instagram.com/reel/DYe_8mcCmfb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
+  { title: "Mulher Tentante", duration: "1:19", category: "apoio", url:"https://www.instagram.com/reel/DXpdu7vDghy/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
+  { title: "Câncer e Fertilidade", duration: "0:50", category: "Conceitos", url: "https://www.instagram.com/reel/DYAESH1Pd_c/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
+  { title: "Jesum e cuidados no dia da cirurgia", duration: "1:08", category: "Cuidados", url:"https://www.instagram.com/reel/DYkDVnHDJkB/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
 ];
 
 const categorias = ["Todos", ...Array.from(new Set(videos.map((v) => v.category)))];
@@ -75,6 +75,7 @@ function Page() {
             <Card key={v.title} className="!p-0 overflow-hidden">
               <div className="relative aspect-video bg-gradient-to-br from-rose-soft to-rose-deep/50">
                 <button
+                  onClick={() => window.open(v.url, "_blank")}
                   className="absolute inset-0 m-auto h-14 w-14 rounded-full bg-card/90 text-rose-deep shadow-soft flex items-center justify-center transition hover:scale-105"
                   aria-label={`Reproduzir ${v.title}`}
                 >
