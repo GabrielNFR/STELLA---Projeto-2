@@ -2,8 +2,6 @@
 
 Bem-vindo(a) à equipe! Este documento contém tudo o que você precisa saber para configurar o ambiente e contribuir com código no projeto STELLA.
 
----
-
 ## Visão Geral
 
 STELLA é uma plataforma **SPA desacoplada**: o frontend (React + Vite) roda independente do backend (Django REST), comunicando-se exclusivamente via API JSON.
@@ -131,8 +129,6 @@ STELLA---Projeto-2/
             └── convite.$token.tsx
 ```
 
----
-
 ### Nova tela no Frontend
 
 1. Crie um arquivo em `frontend/src/routes/` com a convenção do TanStack Router:
@@ -208,8 +204,6 @@ import { Card } from "@/components/ui-bits/PageHeader";
 import { cn } from "@/lib/utils";
 ```
 
----
-
 ## APIs Disponíveis (Backend)
 
 | Método | Endpoint | Descrição |
@@ -225,8 +219,6 @@ import { cn } from "@/lib/utils";
 
 > O backend está com `CORS_ALLOW_ALL_ORIGINS = True` apenas para desenvolvimento.
 
----
-
 ## Checklist Antes de Commitar
 
 - [ ] O frontend compila sem erros: `npm run build`
@@ -236,7 +228,6 @@ import { cn } from "@/lib/utils";
 - [ ] Imports não usados foram removidos
 - [ ] A feature foi testada com ambos os servidores rodando
 
----
 
 ## Dúvidas Comuns
 
