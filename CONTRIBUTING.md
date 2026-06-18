@@ -16,6 +16,14 @@ STELLA é uma plataforma **SPA desacoplada**: o frontend (React + Vite) roda ind
 
 ## Primeira Configuração (Setup Inicial)
 
+### Pré-requisitos
+
+Antes de começar, garanta que você tem instalado:
+
+- Python 3.13+
+- Node.js 20+
+- Git
+
 Após clonar o repositório, você precisa de **dois terminais** abertos simultaneamente.
 
 ### Terminal 1 — Backend (Django)
@@ -60,6 +68,18 @@ npm run dev
 ```
 
 A interface estará em: `http://localhost:5173`
+
+### Variáveis de Ambiente
+
+| Ambiente | Variável | Uso |
+|----------|----------|-----|
+| Backend | `SECRET_KEY` | Chave secreta do Django em produção |
+| Backend | `DEBUG` | Liga/desliga modo debug |
+| Backend | `ALLOWED_HOSTS` | Hosts permitidos pelo Django |
+| Backend | `CORS_ALLOW_ALL_ORIGINS` | Libera CORS em desenvolvimento |
+| Backend | `CORS_ALLOWED_ORIGINS` | Origens permitidas em produção |
+| Frontend | `VITE_API_BASE_URL` | URL base da API Django |
+| E2E | `STELLA_URL` | URL da aplicação para testes Selenium |
 
 ---
 
@@ -155,6 +175,7 @@ STELLA---Projeto-2/
    ```bash
    npx @tanstack/router-cli generate
    ```
+   > O `npx` pode baixar o CLI temporariamente caso ele ainda não esteja instalado localmente.
 
 4. Para consumir a API do Django, use sempre o utilitário centralizado:
    ```tsx
@@ -190,7 +211,7 @@ As cores do design system STELLA × AMARE estão definidas como variáveis CSS e
 | `--ink` | `text-ink` | Texto principal |
 
 ### Componentes shadcn/ui
-Todos os primitivos estão em `frontend/src/components/ui/`. Use `<Button>`, `<Card>`, `<Dialog>` etc. — **não crie botões com `<button>` puro.**
+Todos os primitivos estão em `frontend/src/components/ui/`. Use `<Button>`, `<Card>`, `<Dialog>` etc. — **prefira `<Button>` sempre que possível; use `<button>` puro apenas quando houver necessidade específica.**
 
 ### Utilitário `cn()`
 Para combinar classes condicionais:
@@ -210,6 +231,7 @@ import { cn } from "@/lib/utils";
 
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
+| POST | `/api/auth/login/` | Login e geração de token |
 | GET | `/api/tratamento/fases/` | Lista fases do tratamento |
 | GET/POST | `/api/tratamento/agenda/` | Consultas e exames |
 | GET/POST | `/api/tratamento/diario/` | Registros emocionais |
@@ -221,16 +243,35 @@ import { cn } from "@/lib/utils";
 
 > O backend está com `CORS_ALLOW_ALL_ORIGINS = True` apenas para desenvolvimento.
 
+### Testes E2E
+
+Os testes E2E ficam em `e2e/` e usam Selenium + pytest.
+
+```bash
+cd e2e
+pip install -r requirements.txt
+STELLA_URL=http://localhost:5173 pytest --verbosity=2
+```
+
 ## Checklist Antes de Commitar
 
 - [ ] O frontend compila sem erros: `npm run build`
+- [ ] O lint do frontend passa: `npm run lint`
 - [ ] O backend passa nos checks: `python manage.py check`
 - [ ] As migrações estão em dia: `python manage.py makemigrations --check --dry-run`
 - [ ] Nenhum `console.log` esquecido no código
 - [ ] Imports não usados foram removidos
 - [ ] A feature foi testada com ambos os servidores rodando
 - [ ] Os testes de API continuam passando: `python manage.py test tratamento`
+- [ ] Se houver mudança visual ou fluxo crítico, os testes E2E foram considerados
 
+## Fluxo de CI/CD
+
+O GitHub Actions roda automaticamente em pull requests e pushes para `main`.
+
+- Pull requests para `main` executam os testes do backend.
+- Pushes na `main` executam testes, deploy do backend, deploy do frontend e testes E2E.
+- Não faça merge se os checks estiverem falhando.
 
 ## Dúvidas Comuns
 
