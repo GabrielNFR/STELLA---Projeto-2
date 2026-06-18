@@ -24,7 +24,10 @@ def test_filtro_por_categoria(driver):
 def test_busca_sem_resultado_exibe_mensagem(driver):
     driver.get(f'{BASE_URL}/videoteca')
     campo = driver.find_element(By.CSS_SELECTOR, 'input[placeholder*="Buscar"]')
-    campo.send_keys('xyzxyzxyz')
+    driver.execute_script(
+        "var el = arguments[0]; var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set; nativeInputValueSetter.call(el, arguments[1]); el.dispatchEvent(new Event('input', { bubbles: true }));",
+        campo, 'xyzxyzxyz'
+    )
     time.sleep(2)
     cards = driver.find_elements(By.CSS_SELECTOR, '[aria-label^="Reproduzir"]')
     body = driver.find_element(By.TAG_NAME, 'body').text.lower()
