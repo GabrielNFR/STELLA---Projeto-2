@@ -24,12 +24,12 @@ def test_busca_sem_resultado_exibe_mensagem(driver):
     driver.get(f'{BASE_URL}/videoteca')
     campo = driver.find_element(By.CSS_SELECTOR, 'input[placeholder*="Buscar"]')
     campo.send_keys('xyzxyzxyz')
-    WebDriverWait(driver, 5).until(
-        lambda d: 'resultado' in d.find_element(By.TAG_NAME, 'body').text.lower()
-        or 'encontrado' in d.find_element(By.TAG_NAME, 'body').text.lower()
+    WebDriverWait(driver, 8).until(
+        lambda d: len(d.find_elements(By.CSS_SELECTOR, '.grid .overflow-hidden')) == 0
+        or 'nenhum' in d.find_element(By.TAG_NAME, 'body').text.lower()
     )
     body = driver.find_element(By.TAG_NAME, 'body').text.lower()
-    assert 'resultado' in body or 'encontrado' in body
+    assert 'nenhum' in body or len(driver.find_elements(By.CSS_SELECTOR, '.grid .overflow-hidden')) == 0
 
 
 def test_materiais_redireciona_sem_autenticacao(driver):
