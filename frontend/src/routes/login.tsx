@@ -4,6 +4,7 @@ import { AmareLogo } from "@/components/brand/AmareLogo";
 import { StellaLogo } from "@/components/brand/StellaLogo";
 import { Bell, Eye, EyeOff } from "lucide-react";
 import { useUserProfile } from "@/lib/userProfileContext";
+import { buildApiUrl } from "@/lib/api";
 
 // Validate search params (se estamos vindo de um convite de copiloto)
 export const Route = createFileRoute("/login")({
@@ -37,7 +38,7 @@ function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/login/", {
+      const response = await fetch(buildApiUrl("/api/auth/login/"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

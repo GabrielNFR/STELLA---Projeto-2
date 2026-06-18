@@ -76,4 +76,30 @@ jobs:
           app_location: frontend
           output_location: dist
         env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+
+  testes-e2e:
+    name: Testes E2E (Selenium)
+    needs: [deploy-backend, deploy-frontend]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Instalar dependências E2E
+        run: pip install -r e2e/requirements.txt
+
+      - name: Instalar Google Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Executar testes E2E
+        working-directory: e2e
+        run: pytest --verbosity=2
+        env:
+          STELLA_URL: ${{ secrets.STELLA_FRONTEND_URL }}
