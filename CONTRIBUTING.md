@@ -8,7 +8,7 @@ STELLA é uma plataforma **SPA desacoplada**: o frontend (React + Vite) roda ind
 
 | Camada | Tecnologia | Porta padrão |
 |--------|-----------|-------------|
-| Frontend | React 18 + TypeScript + Vite + Tailwind v4 | `5173` |
+| Frontend | React 19 + TypeScript + Vite + Tailwind v4 | `5173` |
 | Backend | Django 6.0 + Django REST Framework | `8000` |
 | Banco | SQLite (desenvolvimento) | — |
 
@@ -96,7 +96,9 @@ STELLA---Projeto-2/
         ├── index.css          ← Tailwind + variáveis de tema
         ├── routeTree.gen.ts   ← Auto-gerado pelo TanStack Router CLI
         ├── lib/
-        │   └── utils.ts       ← Função cn() para classes CSS
+        │   ├── utils.ts       ← Função cn() para classes CSS
+        │   ├── api.ts         ← buildApiUrl e buildImageUrl (usa VITE_API_BASE_URL)
+        │   └── userProfileContext.tsx ← Contexto global do usuário autenticado
         ├── hooks/             ← Hooks React customizados
         ├── components/
         │   ├── ui/            ← Componentes shadcn/ui (Button, Card, etc.)
@@ -154,10 +156,10 @@ STELLA---Projeto-2/
    npx @tanstack/router-cli generate
    ```
 
-4. Para consumir a API do Django, use sempre o padrão com fallback:
+4. Para consumir a API do Django, use sempre o utilitário centralizado:
    ```tsx
-   const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-   fetch(`${API_BASE}/api/tratamento/meu-endpoint/`)
+   import { buildApiUrl } from "@/lib/api";
+   fetch(buildApiUrl("/api/tratamento/meu-endpoint/"))
    ```
 
 ### B. Novo modelo/API no Backend
@@ -215,7 +217,7 @@ import { cn } from "@/lib/utils";
 | GET/POST | `/api/tratamento/medicacoes/` | Medicações |
 | GET/PUT/DELETE | `/api/tratamento/medicacoes/{id}/` | Medicamento específico |
 | GET/PUT | `/api/tratamento/perfil/` | Dados do perfil |
-| PUT | `/api/tratamento/perfil/foto/` | Upload de foto |
+| PATCH | `/api/tratamento/perfil/foto/` | Upload de foto |
 
 > O backend está com `CORS_ALLOW_ALL_ORIGINS = True` apenas para desenvolvimento.
 
@@ -227,6 +229,7 @@ import { cn } from "@/lib/utils";
 - [ ] Nenhum `console.log` esquecido no código
 - [ ] Imports não usados foram removidos
 - [ ] A feature foi testada com ambos os servidores rodando
+- [ ] Os testes de API continuam passando: `python manage.py test tratamento`
 
 
 ## Dúvidas Comuns
