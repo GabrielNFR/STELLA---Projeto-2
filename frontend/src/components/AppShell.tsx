@@ -129,7 +129,7 @@ export function AppShell() {
             <Menu className="h-5 w-5" />
           </button>
           <div className="lg:hidden">
-            <AmareLogo tagline={false} />
+            <AmareLogo />
           </div>
           <div className="ml-auto flex items-center gap-2">
             <div className="hidden sm:flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-sm text-muted-foreground w-72">

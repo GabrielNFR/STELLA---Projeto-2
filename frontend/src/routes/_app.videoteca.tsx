@@ -9,12 +9,12 @@ export const Route = createFileRoute("/_app/videoteca")({
 });
 
 const videos = [
-  { title: "Primeiras 24h após a cirurgia", duration: "1:06", category: "Cuidados", url: "https://www.instagram.com/reel/DZXmMOFvC60/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA==" },
-  { title: "Genética pode impedir um casal de ter filhos?", duration: "0:59", category: "Conceitos", url: "https://www.instagram.com/reel/DZPaezkFdC-/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
-  { title: "Primeira consulta: oque esperar?", duration: "1:34", category: "Procedimentos",url: "https://www.instagram.com/reel/DYe_8mcCmfb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
-  { title: "Mulher Tentante", duration: "1:19", category: "apoio", url:"https://www.instagram.com/reel/DXpdu7vDghy/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
-  { title: "Câncer e Fertilidade", duration: "0:50", category: "Conceitos", url: "https://www.instagram.com/reel/DYAESH1Pd_c/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
-  { title: "Jesum e cuidados no dia da cirurgia", duration: "1:08", category: "Cuidados", url:"https://www.instagram.com/reel/DYkDVnHDJkB/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" },
+  { title: "Primeiras 24h após a cirurgia", duration: "1:06", category: "Cuidados", url: "https://www.instagram.com/reel/DZXmMOFvC60/" },
+  { title: "Genética pode impedir um casal de ter filhos?", duration: "0:59", category: "Conceitos", url: "https://www.instagram.com/reel/DZPaezkFdC-/ "},
+  { title: "Primeira consulta: oque esperar?", duration: "1:34", category: "Procedimentos",url: "https://www.instagram.com/reel/DYe_8mcCmfb/" },
+  { title: "Mulher Tentante", duration: "1:19", category: "apoio", url:"https://www.instagram.com/reel/DXpdu7vDghy/" },
+  { title: "Câncer e Fertilidade", duration: "0:50", category: "Conceitos", url: "https://www.instagram.com/reel/DYAESH1Pd_c/" },
+  { title: "Jesum e cuidados no dia da cirurgia", duration: "1:08", category: "Cuidados", url:"https://www.instagram.com/reel/DYkDVnHDJkB/" },
 ];
 
 const categorias = ["Todos", ...Array.from(new Set(videos.map((v) => v.category)))];
