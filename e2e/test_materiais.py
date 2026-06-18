@@ -1,3 +1,4 @@
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from conftest import BASE_URL
@@ -24,12 +25,10 @@ def test_busca_sem_resultado_exibe_mensagem(driver):
     driver.get(f'{BASE_URL}/videoteca')
     campo = driver.find_element(By.CSS_SELECTOR, 'input[placeholder*="Buscar"]')
     campo.send_keys('xyzxyzxyz')
-    WebDriverWait(driver, 8).until(
-        lambda d: len(d.find_elements(By.CSS_SELECTOR, '.grid .overflow-hidden')) == 0
-        or 'nenhum' in d.find_element(By.TAG_NAME, 'body').text.lower()
-    )
+    time.sleep(2)
+    cards = driver.find_elements(By.CSS_SELECTOR, '[aria-label^="Reproduzir"]')
     body = driver.find_element(By.TAG_NAME, 'body').text.lower()
-    assert 'nenhum' in body or len(driver.find_elements(By.CSS_SELECTOR, '.grid .overflow-hidden')) == 0
+    assert len(cards) == 0 or 'nenhum' in body
 
 
 def test_materiais_redireciona_sem_autenticacao(driver):
