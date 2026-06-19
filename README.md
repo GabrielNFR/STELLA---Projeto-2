@@ -91,12 +91,12 @@ _(a preencher — link YouTube. A URL do deploy deve aparecer durante todo o ví
 #### Issue/Bug Tracker (GitHub)
 [Clique aqui para acessar o Bug Tracker](https://github.com/GabrielNFR/STELLA---Projeto-2/issues)
 
-_(a preencher — print da tela)_
+![Bug Tracker - Sprint 02](assets/screenshots/bugtracker-sprint02.png)
 
 #### Quadro da Sprint 02 (JIRA)
 [Clique aqui para acessar o JIRA](https://projetos2stella.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog)
 
-_(a preencher — print do quadro)_
+![Quadro Sprint 02](assets/screenshots/quadro-sprint02.png)
 
 </details>
 
