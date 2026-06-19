@@ -57,13 +57,9 @@ Aplicação web para acompanhamento de tratamento de Fertilização In Vitro (FI
 #### Protótipo Lo-Fi (Figma)
 [Clique aqui para acessar o protótipo Lo-Fi no Figma](https://www.figma.com/design/ZLL48wZw7k46SFmisSLWfX/Stella-Prototype-Lo-Fi?node-id=0-1&p=f&t=CSNVeULHPBKwifRN-0)
 
-#### Screencast do Protótipo Lo-Fi
-_(a preencher — link YouTube)_
-
 #### Quadro da Sprint e Backlog (JIRA)
 [Clique aqui para acessar o JIRA](https://projetos2stella.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog)
 
-_(a preencher — print do quadro)_
 
 </details>
 
