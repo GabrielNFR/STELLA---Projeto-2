@@ -3,6 +3,9 @@ import { Card } from "@/components/ui-bits/PageHeader";
 import { AvatarPlaceholder } from "@/components/Avatar3D";
 import { useUserProfile } from "@/lib/userProfileContext";
 import { buildApiUrl, buildImageUrl } from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
+import { fetchMedicacoes,type Med} from "@/routes/_app.medicacoes";
+
 import {
   ChevronRight,
   FlaskConical,
@@ -10,8 +13,7 @@ import {
   LifeBuoy,
   NotebookPen,
   Pill,
-  Search,
-  Video,
+  Video
 } from "lucide-react";
 import { useEffect, useState } from "react"; 
 
@@ -20,12 +22,6 @@ export const Route = createFileRoute("/_app/home")({
   component: HomePage,
 });
 
-const events = [
-  { time: "8h", label: "Medicação X", done: true },
-  { time: "8h30", label: "Medicação Y", done: false },
-  { time: "14h", label: "Ultrassom", done: false },
-  { time: "16h30", label: "Consulta Dra Adriana", done: false },
-];
 
 const shortcuts = [
   { to: "/exames", label: "Hub de exames", icon: FlaskConical },
@@ -44,11 +40,53 @@ interface FaseTratamento {
   descricao: string;
 }
 
+type EventoAgenda = {
+  id: number;
+  titulo: string;
+  tipo: "consulta" | "exame";
+  data: string;
+  horario: string;
+  local: string;
+  observacoes: string;
+};
+
+
 function HomePage() {
   const [fases, setFases] = useState<FaseTratamento[]>([]);
   const [loading, setLoading] = useState(true);
   const [imageErrored, setImageErrored] = useState(false);
   const { user, profileImageVersion } = useUserProfile();
+  const { data: meds = [] } =
+  useQuery<Med[]>({
+    queryKey: ["medicacoes"],
+    queryFn: fetchMedicacoes,
+  });
+  const { data: agenda = [] } =
+  useQuery<EventoAgenda[]>({
+    queryKey: ["agenda"],
+    queryFn: fetchEventosAgenda,
+  });
+  const eventosAgenda = agenda.map((evento) => ({
+  time: evento.horario.slice(0, 5),
+  date: evento.data,
+  label: evento.titulo,
+  tipo: "agenda",
+  done: false,
+}));
+  const eventosMedicacao = meds.flatMap((med) =>
+  med.horarios.map((hora) => ({
+    time: hora,
+    label: med.nome,
+    tipo: "medicacao",
+    done: false,
+  }))
+);
+
+const events = [
+  ...eventosMedicacao,
+  ...eventosAgenda,
+].sort((a, b) => a.time.localeCompare(b.time));
+
 
   useEffect(() => {
     fetch(buildApiUrl("/api/tratamento/fases/"))
@@ -66,7 +104,7 @@ function HomePage() {
 
   const avatarUrl = buildImageUrl(user?.profile?.foto_perfil, profileImageVersion);
   const showAvatar = Boolean(avatarUrl && !imageErrored);
-  const name = user?.first_name || "Helena Albuquerque";
+  const name = user?.first_name ||  user?.username || "Helena Albuquerque";
 
   return (
     <div className="space-y-8">
@@ -82,21 +120,12 @@ function HomePage() {
           <AvatarPlaceholder name={name} size={64} />
         )}
         <div>
-          <h1 className="font-display text-3xl md:text-4xl text-ink">Oi, Helena!</h1>
+          <h1 className="font-display text-3xl md:text-4xl text-ink">Oi, {name}!</h1>
           <p className="text-sm text-muted-foreground">
             Aqui está um resumo da sua jornada durante o tratamento.
           </p>
         </div>
       </div>
-
-      <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-3 text-sm text-muted-foreground shadow-card">
-        <Search className="h-4 w-4" />
-        <input
-          placeholder="Buscar medicações, exames, consultas…"
-          className="w-full bg-transparent outline-none placeholder:text-muted-foreground"
-        />
-      </div>
-
       <Card>
         <div className="flex items-center justify-between">
           <div>
@@ -136,6 +165,7 @@ function HomePage() {
                 key={e.label}
                 className="flex items-center gap-3 rounded-2xl border border-border bg-background/60 px-4 py-3"
               >
+                
                 <input
                   type="checkbox"
                   defaultChecked={e.done}
@@ -170,4 +200,18 @@ function HomePage() {
       </div>
     </div>
   );
+}
+
+async function fetchEventosAgenda() {
+  const response = await fetch(
+    "http://127.0.0.1:8000/api/tratamento/agenda/"
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "Não foi possível carregar a agenda."
+    );
+  }
+
+  return response.json();
 }

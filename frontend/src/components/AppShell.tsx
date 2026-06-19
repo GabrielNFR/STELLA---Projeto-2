@@ -15,7 +15,6 @@ import {
   Phone,
   Menu,
   X,
-  Search,
   Bell,
 } from "lucide-react";
 import { AmareLogo } from "@/components/brand/AmareLogo";
@@ -132,13 +131,6 @@ export function AppShell() {
             <AmareLogo />
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <div className="hidden sm:flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-sm text-muted-foreground w-72">
-              <Search className="h-4 w-4" />
-              <input
-                placeholder="Buscar medicações, exames…"
-                className="w-full bg-transparent outline-none placeholder:text-muted-foreground"
-              />
-            </div>
             <Link
               to="/notificacoes"
               className="relative rounded-full p-2 hover:bg-rose-soft/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

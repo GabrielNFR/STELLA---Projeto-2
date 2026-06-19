@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_app/medicacoes")({
   component: Page,
 });
 
-type Med = { id:number; nome: string; dose: string; horarios: string[]; data_inicio: string; data_fim: string | null };
+export type Med = { id:number; nome: string; dose: string; horarios: string[]; data_inicio: string; data_fim: string | null };
 
 
 
@@ -232,7 +232,7 @@ function Page() {
 
 const API_URL = "http://127.0.0.1:8000/api/tratamento/medicacoes/";
 
-async function fetchMedicacoes() {
+export async function fetchMedicacoes() {
   const response = await fetch(API_URL);
 
   if (!response.ok) {
