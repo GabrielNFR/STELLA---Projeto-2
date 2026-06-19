@@ -91,15 +91,6 @@ _(a preencher — link YouTube. A URL do deploy deve aparecer durante todo o ví
 
 #### Programação em Par
 
-Trabalhamos juntas na parte de infraestrutura. Dividimos as tarefas do deploy e CI/CD de forma que uma ia fazendo e a outra acompanhava, o que ajudou bastante na hora de resolver os erros que foram aparecendo no Azure e no GitHub Actions.
-
-**Rebeca Ferraz — Driver**
-Conduziu a implementação do pipeline CI/CD no GitHub Actions, escreveu os testes de API e E2E com Selenium, configurou os recursos no Azure e foi resolvendo os erros que apareceram no caminho, como o encoding do requirements.txt e a URL do login apontando pra localhost.
-
-**Maria Luiza Coelho — Navigator**
-Acompanhou toda a implementação, validou as decisões de infraestrutura, criou os recursos no portal Azure e ajudou a identificar os problemas durante o deployment.
-
-_(a preencher — print da call/pair programming)_
 
 #### Issue/Bug Tracker (GitHub)
 [Clique aqui para acessar o Bug Tracker](https://github.com/GabrielNFR/STELLA---Projeto-2/issues)
