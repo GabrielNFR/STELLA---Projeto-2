@@ -37,11 +37,32 @@ function Page() {
   const deleteMedicacaoMutation = useMutation({mutationFn: deleteMedicacao,onSuccess: () => {queryClient.invalidateQueries({queryKey:["medicacoes"],});},});
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.nome.trim()) return;
+    const regexHora = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
     const times = form.horarios
       .split(",")
       .map((t) => t.trim())
       .filter(Boolean);
+
+    if (!times.every((t) => regexHora.test(t))) {
+      alert(
+        "Use o formato HH:MM. Exemplo: 08:00, 14:30"
+      );
+
+    
+    return;
+  }
+
+  if (
+    form.data_fim &&
+    form.data_fim < form.data_inicio
+  ) {
+    alert(
+      "A data de término não pode ser anterior à data de início."
+    );
+    return;
+  }
+
     createMedicacaoMutation.mutate({
 
       nome: form.nome,
