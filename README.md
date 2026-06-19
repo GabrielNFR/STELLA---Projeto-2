@@ -83,21 +83,21 @@ Aplicação web para acompanhamento de tratamento de Fertilização In Vitro (FI
 2. Faça login com as credenciais fornecidas pela clínica
 3. Navegue pelas funcionalidades pelo menu lateral
 
-#### Screencast do Sistema
-_(a preencher — link YouTube. A URL do deploy deve aparecer durante todo o vídeo)_
+#### Demonstração do Sistema
+[Clique aqui para acessar o Demo Video](https://youtu.be/0rbMugRNmZw)
 
 #### Programação em Par
-
+[Clique aqui para acessar o Relatório de Programação em Par](https://docs.google.com/document/d/1cxi1voBc8Khdim200eojCFN_3Y9wsUDTd4Xzk8KK6jU/edit?usp=sharing)
 
 #### Issue/Bug Tracker (GitHub)
 [Clique aqui para acessar o Bug Tracker](https://github.com/GabrielNFR/STELLA---Projeto-2/issues)
 
-![Bug Tracker - Sprint 02](assets/screenshots/bugtracker-sprint02.png)
+![Bug Tracker - Sprint 02]()
 
 #### Quadro da Sprint 02 (JIRA)
 [Clique aqui para acessar o JIRA](https://projetos2stella.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog)
-
-![Quadro Sprint 02](assets/screenshots/quadro-sprint02.png)
+<img src="assets/screenshots/3.png" width="800">
+<img src="assets/screenshots/4.png" width="800">
 
 </details>
 
