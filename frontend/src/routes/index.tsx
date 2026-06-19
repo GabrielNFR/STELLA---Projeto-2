@@ -34,28 +34,6 @@ function Landing() {
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-clip bg-background">
-      <header className="mx-auto w-full max-w-[1440px] px-5 pt-4 sm:px-6 lg:px-10">
-        <nav className="flex items-center justify-end gap-2 sm:gap-3">
-          <Link
-            to="/login"
-            search={{ inviteToken: undefined }}
-            className="rounded-full border border-rose-deep/30 px-4 py-2 text-sm text-ink transition hover:bg-rose-soft/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98]"
-          >
-            Acesse sua conta
-          </Link>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-rose-deep px-4 py-2 text-sm text-primary-foreground shadow-card transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98]"
-          >
-            <MessageCircle className="h-4 w-4" />
-            <span className="hidden sm:inline">Marque sua consulta</span>
-            <span className="sm:hidden">Consulta</span>
-          </a>
-        </nav>
-      </header>
-
       <main className="relative flex-1 overflow-hidden">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[24rem] bg-gradient-to-b from-transparent via-rose-soft/20 to-rose-soft/55" />
 
@@ -97,10 +75,12 @@ function Landing() {
                 Acesse sua conta
               </Link>
               <a
-                href="#como-funciona"
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noreferrer"
                 className="rounded-full border border-rose-deep/40 px-6 py-3 text-sm text-ink transition hover:bg-rose-soft/40"
               >
-                Como funciona
+                Marque sua consulta
               </a>
             </div>
           </div>
