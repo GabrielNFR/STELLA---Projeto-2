@@ -58,10 +58,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+_db_path = os.environ.get('DB_PATH', str(BASE_DIR / 'db.sqlite3'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': _db_path,
     }
 }
 
@@ -91,6 +92,11 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', 'True') == 'True'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://stella-backend-bea0aab9apadf4c7.eastus2-01.azurewebsites.net',
+    'https://lively-pebble-0ccda8e0f.7.azurestaticapps.net',
+]
 CORS_ALLOWED_ORIGINS = [
     o.strip() for o in os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',') if o.strip()
 ]
