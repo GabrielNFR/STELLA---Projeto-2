@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
 });
 
 const WHATSAPP_URL =
-  "https://wa.me/558130000000?text=Ol%C3%A1%2C+gostaria+de+marcar+uma+consulta+na+Cl%C3%ADnica+AMARE.";
+  "https://wa.me/5581998003535?text=Ol%C3%A1%2C+gostaria+de+marcar+uma+consulta+na+Cl%C3%ADnica+AMARE.";
 
 function Landing() {
   const featureItems = [

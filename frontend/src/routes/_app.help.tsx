@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_app/help")({
 });
 
 const WHATSAPP_URL =
-  "https://wa.me/558130000000?text=Ol%C3%A1%2C+preciso+de+ajuda+da+equipe+AMARE.";
+  "https://wa.me/5581998003535?text=Ol%C3%A1%2C+preciso+de+ajuda+da+equipe+AMARE.";
 
 function Page() {
   return (
@@ -53,10 +53,10 @@ function Page() {
           </span>
           <h3 className="mt-3 font-display text-lg">Ligar para a clínica</h3>
           <p className="text-sm text-muted-foreground">
-            (81) 3000-0000 — recepção AMARE.
+            (81) 3105-5540 — recepção AMARE.
           </p>
           <a
-            href="tel:+558130000000"
+            href="tel:+558131055540"
             className="mt-4 inline-flex items-center gap-2 rounded-full border border-rose-deep/40 px-4 py-2 text-sm text-rose-deep hover:bg-rose-soft/40"
           >
             Ligar agora

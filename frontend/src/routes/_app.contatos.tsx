@@ -8,8 +8,8 @@ export const Route = createFileRoute("/_app/contatos")({
 });
 
 const contacts = [
-  { name: "Clínica AMARE — Recepção", phone: "(81) 3000-0000", email: "contato@amare.com.br", address: "Recife, PE" },
-  { name: "Enfermagem AMARE", phone: "(81) 98765-0000", email: "enfermagem@amare.com.br" },
+  { name: "Clínica AMARE — Recepção", phone: "(81) 3105-5540", email: "contato@amare.com.br", address: "Recife, PE" },
+  { name: "Enfermagem AMARE", phone: "(81) 99800-3535", email: "enfermagem@amare.com.br" },
   { name: "Dra. Adriana Lima", phone: "(81) 98765-0001", email: "dra.adriana@amare.com.br" },
   { name: "Laboratório parceiro — Sabin", phone: "(81) 3000-1111", address: "Boa Viagem, Recife" },
   { name: "Farmácia de manipulação", phone: "(81) 3000-2222", address: "Casa Forte, Recife" },
