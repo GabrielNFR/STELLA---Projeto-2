@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
 import { Check, Circle, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { buildApiUrl } from "@/lib/api";
 
 export const Route = createFileRoute("/_app/timeline")({
   head: () => ({ meta: [{ title: "Timeline — STELLA" }] }),
@@ -23,7 +24,7 @@ function Timeline() {
 
   // Aqui buscamos a verdadeira Timeline do seu backend!
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/tratamento/fases/')
+    fetch(buildApiUrl('/api/tratamento/fases/'))
       .then(resposta => resposta.json())
       .then(dados => {
         setFases(dados);

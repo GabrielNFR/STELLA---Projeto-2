@@ -204,7 +204,7 @@ const events = [
 
 async function fetchEventosAgenda() {
   const response = await fetch(
-    "http://127.0.0.1:8000/api/tratamento/agenda/"
+    buildApiUrl("/api/tratamento/agenda/")
   );
 
   if (!response.ok) {

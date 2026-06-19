@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState, type FormEvent } from "react";
 import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
 import { Modal, fieldClass, labelClass, submitBtnClass } from "@/components/ui-bits/Modal";
+import { buildApiUrl } from "@/lib/api";
 import {
   AlertCircle,
   Calendar,
@@ -33,7 +34,7 @@ type EventoAgenda = {
 
 type EventoAgendaInput = Omit<EventoAgenda, "id">;
 
-const API_URL = "http://127.0.0.1:8000/api/tratamento/agenda/";
+const API_URL = buildApiUrl("/api/tratamento/agenda/");
 
 const iconFor = { consulta: Stethoscope, exame: FlaskConical };
 

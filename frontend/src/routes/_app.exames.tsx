@@ -4,7 +4,7 @@ import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
 import { Modal, fieldClass, labelClass, submitBtnClass } from "@/components/ui-bits/Modal";
 import { Upload, FileText, Download } from "lucide-react";
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+import { API_BASE_URL } from "@/lib/api";
 
 export const Route = createFileRoute("/_app/exames")({
   head: () => ({ meta: [{ title: "Hub de exames — STELLA" }] }),

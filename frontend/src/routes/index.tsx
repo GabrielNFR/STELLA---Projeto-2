@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bell, Calendar, Clock, Heart, MessageCircle } from "lucide-react";
+import { Bell, Calendar, Clock, Heart } from "lucide-react";
 import { StellaLogo } from "@/components/brand/StellaLogo";
 import { StakeholdersIllustration } from "@/components/brand/StakeholdersIllustration";
 

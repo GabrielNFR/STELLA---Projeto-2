@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
+import { API_BASE_URL } from "@/lib/api";
 
 export const Route = createFileRoute("/_app/como-estou-hoje")({
   head: () => ({ meta: [{ title: "Como estou hoje? — STELLA" }] }),
@@ -22,8 +23,6 @@ const symptoms = [
   "Calor",
 ];
 const physiology = ["Sono ruim", "Apetite baixo", "Hidratação ok", "Exercício leve"];
-
-const API_BASE_URL = "http://localhost:8000";
 
 type DiarioRegistro = {
   id: number;

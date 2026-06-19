@@ -4,6 +4,7 @@ import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
 import { Modal, fieldClass, labelClass, submitBtnClass } from "@/components/ui-bits/Modal";
 import { Pill, Plus, Clock } from "lucide-react";
 import {useQuery,useMutation,useQueryClient,} from "@tanstack/react-query";
+import { buildApiUrl } from "@/lib/api";
 
 
 export const Route = createFileRoute("/_app/medicacoes")({
@@ -251,7 +252,7 @@ function Page() {
 }
 
 
-const API_URL = "http://127.0.0.1:8000/api/tratamento/medicacoes/";
+const API_URL = buildApiUrl("/api/tratamento/medicacoes/");
 
 export async function fetchMedicacoes() {
   const response = await fetch(API_URL);

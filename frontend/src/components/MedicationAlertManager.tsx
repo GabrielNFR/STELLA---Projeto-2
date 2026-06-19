@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { buildApiUrl } from "@/lib/api";
 
 type Med = { id:number; nome: string; dose: string; horarios: string[]; data_inicio: string; data_fim: string | null };
 
-const API_URL = "http://127.0.0.1:8000/api/tratamento/medicacoes/";
+const API_URL = buildApiUrl("/api/tratamento/medicacoes/");
 
 async function fetchMedicacoes() {
   const response = await fetch(API_URL);

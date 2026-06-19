@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader, Card } from "@/components/ui-bits/PageHeader";
 import { Eye, Share2, Copy, Check } from "lucide-react";
 import { useState } from "react";
+import { buildApiUrl } from "@/lib/api";
 
 export const Route = createFileRoute("/_app/copiloto")({
   head: () => ({ meta: [{ title: "Modo Copiloto — STELLA" }] }),
@@ -27,7 +28,7 @@ function Page() {
 
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/api/tratamento/copiloto/convidar/", {
+      const response = await fetch(buildApiUrl("/api/tratamento/copiloto/convidar/"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
